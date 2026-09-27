@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+:root {
+  --background: oklch(0.99 0.004 95);
+  --foreground: oklch(0.22 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --primary: oklch(0.45 0.13 255);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.95 0.01 255);
+  --secondary-foreground: oklch(0.3 0.03 260);
+  --muted: oklch(0.96 0.006 255);
+  --muted-foreground: oklch(0.47 0.02 260);
+  --accent: oklch(0.95 0.015 255);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --success: oklch(0.5 0.13 150);
+  --warning: oklch(0.55 0.13 70);
+  --border: oklch(0.9 0.01 255);
+  --input: oklch(0.86 0.012 255);
+  --ring: oklch(0.55 0.14 255);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: oklch(0.18 0.012 260);
+    --foreground: oklch(0.95 0.005 255);
+    --card: oklch(0.22 0.014 260);
+    --primary: oklch(0.72 0.12 255);
+    --primary-foreground: oklch(0.18 0.02 260);
+    --secondary: oklch(0.28 0.015 260);
+    --secondary-foreground: oklch(0.92 0.01 255);
+    --muted: oklch(0.26 0.012 260);
+    --muted-foreground: oklch(0.72 0.015 255);
+    --accent: oklch(0.3 0.02 260);
+    --destructive: oklch(0.68 0.17 27);
+    --success: oklch(0.74 0.14 150);
+    --warning: oklch(0.8 0.13 80);
+    --border: oklch(0.32 0.015 260);
+    --input: oklch(0.38 0.015 260);
+    --ring: oklch(0.72 0.12 255);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* 紹介サイト（Next AI Agent 独自のトークン） */
+  --color-mk-bg: #ffffff;
+  --color-mk-surface: #f3f8f1;
+  --color-mk-ink: #142b1e;
+  --color-mk-muted: #526259;
+  --color-mk-primary: #17663a;
+  --color-mk-primary-hover: #12532f;
+  --color-mk-accent: #7ad996;
+  --color-mk-line: #dee7de;
+  --color-mk-deep: #0f3a24;
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   紹介サイト
+--------------------------------------------------------------------------- */
+.marketing {
+  --mk-header-h: 72px;
+  font-family: "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+  background: var(--color-mk-bg);
+  color: var(--color-mk-ink);
+  font-feature-settings: "palt" 0;
+}
+.marketing :focus-visible {
+  outline: 2px solid var(--color-mk-primary);
+  outline-offset: 3px;
+}
+.marketing [data-anchor] {
+  scroll-margin-top: calc(var(--mk-header-h) + 16px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.marketing) {
+    scroll-behavior: smooth;
+  }
+  .mk-fade-in {
+    animation: mk-fade-in 360ms ease-out both;
+  }
+  .mk-fade-in-late {
+    animation: mk-fade-in 400ms ease-out 120ms both;
+  }
+}
+@keyframes mk-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.mk-grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(23 102 58 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(23 102 58 / 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.mk-heading {
+  font-feature-settings: "palt" 1;
+  letter-spacing: 0.01em;
+  line-break: strict;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+/* 日本語を文節単位で折り返す（対応ブラウザのみ。非対応では通常の折り返し） */
+.marketing h1,
+.marketing h2,
+.marketing h3,
+.marketing summary,
+.marketing .mk-phrase {
+  word-break: auto-phrase;
+}
